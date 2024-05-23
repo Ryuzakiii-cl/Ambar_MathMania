@@ -1,6 +1,5 @@
-body, nav{
+body, nav {
     background-image: url(/img/body.jpg);
-    
 }
 
 .navbar {
@@ -27,12 +26,48 @@ body, nav{
 .navbar-nav .nav-link {
     text-align: center;
     margin: 0 50px;
-    font-size: 20px;
+    font-size: 30px;
+    position: relative; /* Necesario para el ::after */
 }
 
-.parrafo-inicio{
+.navbar-nav .nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    display: block;
+    background: black;
+    transition: width .3s;
+    bottom: -5px; /* Ajuste para que la línea esté un poco debajo del texto */
+    left: 0;
+}
+
+.navbar-nav .nav-link:hover::after {
+    width: 100%;
+}
+
+.parrafo-inicio {
     padding-top: 30px;
     margin-left: 200px;
     margin-right: 200px;
     text-align: justify;
+}
+
+.card-text {
+    text-align: justify;
+}
+
+.card-title {
+    text-align: center;
+    text-decoration: underline brown;
+    color: brown !important;
+}
+
+.btn-custom {
+    width: 150px;
+    height: 50px;
+    background-color: chocolate !important;
+    border-color: chocolate !important;
+    color: black !important;
+    font: bold !important;
 }
