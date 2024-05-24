@@ -71,3 +71,9 @@ body, nav {
     color: black !important;
     font: bold !important;
 }
+
+
+.game-container {
+    display: none;
+    margin-top: 20px;
+}
