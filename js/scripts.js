@@ -220,9 +220,46 @@ function cargarPuntuacion() {
 }
 
 /* Inicialización de la página */
+document.addEventListener('DOMContentLoaded', (event) => {
+    init();
+});
+
+let premioValor = 0;
+
 function init() {
-    cargarPuntuacion();
-    showGame('suma'); 
+    let puntuacionGuardada = localStorage.getItem('puntuacion');
+    if (puntuacionGuardada === null) {
+        puntuacionGuardada = 0;
+        localStorage.setItem('puntuacion', puntuacionGuardada);
+    }
+    document.getElementById('puntuacion').innerText = `Puntuación: ${puntuacionGuardada}`;
 }
 
-init();
+function openModal(valor) {
+    premioValor = valor;
+    const confirmModal = new bootstrap.Modal(document.getElementById('confirmModal'));
+    confirmModal.show();
+}
+
+document.getElementById('confirmButton').addEventListener('click', () => {
+    canjearPremio(premioValor);
+    const confirmModal = bootstrap.Modal.getInstance(document.getElementById('confirmModal'));
+    confirmModal.hide();
+});
+
+function canjearPremio(valor) {
+    let puntuacionActual = parseInt(localStorage.getItem('puntuacion'));
+    const notificationModal = new bootstrap.Modal(document.getElementById('notificationModal'));
+    const notificationMessage = document.getElementById('notificationMessage');
+
+    if (puntuacionActual >= valor) {
+        puntuacionActual -= valor;
+        localStorage.setItem('puntuacion', puntuacionActual);
+        document.getElementById('puntuacion').innerText = `Puntuación: ${puntuacionActual}`;
+        notificationMessage.innerText = '¡Premio canjeado exitosamente!';
+    } else {
+        let puntosFaltantes = valor - puntuacionActual;
+        notificationMessage.innerText = `No tienes suficientes puntos. Te faltan ${puntosFaltantes} puntos.`;
+    }
+    notificationModal.show();
+}
